@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArtficialIntelegenceModule } from './artficial-intelegence/artficial-intelegence.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [ArtficialIntelegenceModule],
+  imports: [ArtficialIntelegenceModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

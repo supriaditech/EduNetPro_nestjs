@@ -9,6 +9,101 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  nisn          String         @unique
+  password      String
+  photo_url     String?
+  name          String
+  date_of_birth BigInt
+  role          Role
+  materi        materi[]
+  created_at    BigInt
+  updated_at    BigInt
+  quiz          quiz[]
+  quiz_attempt  quiz_attempt[]
+  user_answer   user_answer[]
+  RefreshToken  RefreshToken[]
+}
+
+model RefreshToken {
+  id        Int    @id @default(autoincrement())
+  token     String @unique
+  userId    Int
+  expiredAt BigInt
+  createdAt BigInt
+  updatedAt BigInt
+  user      User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+enum Role {
+  GURU
+  MURID
+}
+
+model materi {
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String
+  sort_desc    String
+  image_url    String
+  user_id      Int
+  user         User           @relation(fields: [user_id], references: [id])
+  created_at   BigInt
+  updated_at   BigInt
+  quiz         quiz[]
+  quiz_attempt quiz_attempt[]
+}
+
+model quiz {
+  id             Int           @id @default(autoincrement())
+  materi_id      Int
+  materi         materi        @relation(fields: [materi_id], references: [id])
+  question_text  String
+  option_a       String
+  option_b       String
+  option_c       String
+  option_d       String
+  correct_answer String
+  user_id        Int
+  user           User          @relation(fields: [user_id], references: [id])
+  created_at     BigInt
+  updated_at     BigInt
+  user_answer    user_answer[]
+}
+
+model quiz_attempt {
+  id              Int           @id @default(autoincrement())
+  user_id         Int
+  user            User          @relation(fields: [user_id], references: [id])
+  materi_id       Int
+  materi          materi        @relation(fields: [materi_id], references: [id])
+  total_question  Int
+  correct_answers Int
+  score           Float
+  created_at      BigInt
+  updated_at      BigInt
+  user_answer     user_answer[]
+}
+
+model user_answer {
+  id              Int          @id @default(autoincrement())
+  user_id         Int
+  user            User         @relation(fields: [user_id], references: [id])
+  quiz_attempt_id Int
+  quiz_attempt    quiz_attempt @relation(fields: [quiz_attempt_id], references: [id])
+  quiz_id         Int
+  quiz            quiz         @relation(fields: [quiz_id], references: [id])
+  user_answer     String
+  correct_answers Int
+  is_correct      Boolean
+  created_at      BigInt
+  updated_at      BigInt
 }

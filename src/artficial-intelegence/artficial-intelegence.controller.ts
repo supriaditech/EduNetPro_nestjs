@@ -1,6 +1,6 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ArtficialIntelegenceService } from './artficial-intelegence.service';
-import { buildResponse } from 'helper/buildResponse';
+import { buildResponse } from 'src/common/response.util';
 
 @Controller('artficial-intelegence')
 export class ArtficialIntelegenceController {
