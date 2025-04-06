@@ -1,6 +1,12 @@
-# compiled output
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Compiled output
 /dist
 /node_modules
+/build
 
 # Logs
 logs
@@ -26,12 +32,16 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
-.env
+# Uploads
+/uploads
+/public/uploads
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Temporary files
+tmp/
+temp/
