@@ -34,9 +34,13 @@ lerna-debug.log*
 *.sublime-workspace
 .vscode/*
 
-# Uploads
+# Upload directories
+uploads/
+uploads/*
 /uploads
 /public/uploads
+**/uploads/
+**/profile-photos/
 
 # Database
 *.sqlite
